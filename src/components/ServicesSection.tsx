@@ -15,7 +15,7 @@ const services = [
   {
     icon: Box,
     title: "Modelos de Fundição",
-    description: "Modelos de fundição em diversos materiais com alta precisão dimensional e acabamento superior.",
+    description: "Modelos de fundição em madeira, EPS, resinas, metais ferrosos e alumínio com alta precisão e acabamento superior.",
     image: servicesMolds,
   },
   {
