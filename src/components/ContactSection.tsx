@@ -6,8 +6,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-
-const WHATSAPP_URL = "https://wa.me/5519997391780?text=Olá!%20Gostaria%20de%20falar%20com%20um%20especialista%20da%20MovMold.";
+import { WHATSAPP_URL } from "@/lib/constants";
+import { IMaskInput } from "react-imask";
 
 interface ContactFormData {
   nome: string;
@@ -28,44 +28,9 @@ const ContactSection = () => {
     mensagem: "",
   });
 
-  const formatCNPJ = (value: string) => {
-    return value
-      .replace(/\D/g, "") // Remove tudo o que não é dígito
-      .replace(/(\d{2})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1.$2")
-      .replace(/(\d{3})(\d)/, "$1/$2")
-      .replace(/(\d{4})(\d{1,2})/, "$1-$2")
-      .replace(/(-\d{2})\d+?$/, "$1");
-  };
-
-  const formatPhone = (value: string) => {
-    let v = value.replace(/\D/g, "");
-    if (v.length <= 10) {
-      // Formato fixo: (00) 0000-0000
-      return v
-        .replace(/(\d{2})(\d)/, "($1) $2")
-        .replace(/(\d{4})(\d)/, "$1-$2")
-        .replace(/(-\d{4})\d+?$/, "$1");
-    } else {
-      // Formato celular: (00) 00000-0000
-      return v
-        .replace(/(\d{2})(\d)/, "($1) $2")
-        .replace(/(\d{5})(\d)/, "$1-$2")
-        .replace(/(-\d{4})\d+?$/, "$1");
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    let formattedValue = value;
-
-    if (name === "cnpj") {
-      formattedValue = formatCNPJ(value);
-    } else if (name === "telefone") {
-      formattedValue = formatPhone(value);
-    }
-
-    setFormData((prev) => ({ ...prev, [name]: formattedValue }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,6 +40,26 @@ const ContactSection = () => {
       toast({
         title: "Campos obrigatórios",
         description: "Por favor, preencha todos os campos obrigatórios.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const telefoneNumeros = formData.telefone.replace(/\D/g, "");
+    const cnpjNumeros = formData.cnpj.replace(/\D/g, "");
+
+    if (telefoneNumeros.length < 10) {
+      toast({
+        title: "Telefone incompleto",
+        description: "Por favor, insira o número de telefone completo com DDD.",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (cnpjNumeros.length > 0 && cnpjNumeros.length < 14) {
+      toast({
+        title: "CNPJ incompleto",
+        description: "Por favor, preencha todos os dígitos do CNPJ.",
         variant: "destructive",
       });
       return;
@@ -153,24 +138,29 @@ const ContactSection = () => {
             </div>
             <div>
               <label className="text-sm text-primary-foreground/70 mb-1 block">CNPJ</label>
-              <Input
+              <IMaskInput
+                mask="00.000.000/0000-00"
                 name="cnpj"
                 value={formData.cnpj}
-                onChange={handleChange}
+                unmask={false}
+                onAccept={(value) => setFormData((prev) => ({ ...prev, cnpj: value as string }))}
                 placeholder="00.000.000/0000-00"
-                maxLength={18}
-                className="bg-navy-light/50 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
+                className="flex h-10 w-full rounded-md px-3 py-2 text-sm bg-navy-light/50 border border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
               />
             </div>
             <div>
               <label className="text-sm text-primary-foreground/70 mb-1 block">Telefone *</label>
-              <Input
+              <IMaskInput
+                mask={[
+                  { mask: "(00) 0000-0000" },
+                  { mask: "(00) 00000-0000" }
+                ]}
                 name="telefone"
                 value={formData.telefone}
-                onChange={handleChange}
+                unmask={false}
+                onAccept={(value) => setFormData((prev) => ({ ...prev, telefone: value as string }))}
                 placeholder="(00) 00000-0000"
-                maxLength={15}
-                className="bg-navy-light/50 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
+                className="flex h-10 w-full rounded-md px-3 py-2 text-sm bg-navy-light/50 border border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
               />
             </div>
             <div>
