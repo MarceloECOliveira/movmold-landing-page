@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.svg";
 
 const links = [
   { label: "Serviços", href: "#servicos" },
@@ -26,9 +27,19 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between h-16">
-        <a href="#" className="font-display text-xl font-bold text-primary-foreground">
-          Mov<span className="text-teal">Mold</span>
-        </a>
+        <a 
+  href="#" 
+  className="flex items-center gap-2 font-display text-xl font-bold text-primary-foreground"
+>
+  <img 
+    src={logo} 
+    alt="Logo MovMold" 
+    className="h-11 w-auto object-contain"
+  />
+  <span>
+    Mov<span className="text-teal">Mold</span>
+  </span>
+</a>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
