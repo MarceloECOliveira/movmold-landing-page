@@ -15,42 +15,45 @@ const services = [
   {
     icon: Box,
     title: "Modelos de Fundição",
-    description: "Modelos de fundição em madeira, EPS, resinas, metais ferrosos e alumínio com alta precisão e acabamento superior.",
+    description:
+      "Modelos de fundição em madeira, EPS, resinas, metais ferrosos e alumínio com alta precisão e acabamento superior.",
     image: servicesMolds,
   },
   {
     icon: Wrench,
     title: "Dispositivos Industriais",
-    description: "Dispositivos e gabaritos customizados para otimizar processos produtivos e garantir repetibilidade.",
+    description:
+      "Dispositivos e gabaritos customizados para otimizar processos produtivos e garantir repetibilidade.",
     image: servicesDevices,
   },
   {
     icon: Printer,
     title: "Prototipagem 3D",
-    description: "Prototipagem rápida com impressão 3D para validação de conceitos e redução de tempo de desenvolvimento.",
+    description:
+      "Prototipagem rápida com impressão 3D para validação de conceitos e redução de tempo de desenvolvimento.",
     image: servicesPrototype,
   },
 ];
 
 const ServicesSection = () => {
   return (
-    <section id="servicos" className="py-24 bg-background">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section id="servicos" className="bg-background py-24">
+      <div className="container mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <p className="text-teal font-medium tracking-[0.15em] uppercase text-sm mb-3">
+          <p className="mb-3 text-sm font-medium uppercase tracking-[0.15em] text-teal">
             O que fazemos
           </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">
+          <h2 className="font-display text-4xl font-bold text-foreground md:text-5xl">
             Nossos Serviços
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid gap-8 md:grid-cols-2">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -58,27 +61,25 @@ const ServicesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group bg-card rounded-xl overflow-hidden border border-border hover:border-teal/40 transition-all duration-300 hover:shadow-xl"
+              className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:border-teal/40 hover:shadow-xl"
             >
               <div className="h-48 overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center">
-                    <service.icon className="w-5 h-5 text-teal" />
+                <div className="mb-3 flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal/10">
+                    <service.icon className="h-5 w-5 text-teal" />
                   </div>
                   <h3 className="font-display text-xl font-semibold text-foreground">
                     {service.title}
                   </h3>
                 </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
+                <p className="leading-relaxed text-muted-foreground">{service.description}</p>
               </div>
             </motion.div>
           ))}

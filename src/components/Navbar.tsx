@@ -20,34 +20,28 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-navy/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+      className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-navy/95 shadow-lg backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between h-16">
-        <a 
-  href="#" 
-  className="flex items-center gap-2 font-display text-xl font-bold text-primary-foreground"
->
-  <img 
-    src={logo} 
-    alt="Logo MovMold" 
-    className="h-11 w-auto object-contain"
-  />
-  <span>
-    Mov<span className="text-teal">Mold</span>
-  </span>
-</a>
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <a
+          href="#"
+          className="flex items-center gap-2 font-display text-xl font-bold text-primary-foreground"
+        >
+          <img src={logo} alt="Logo MovMold" className="h-11 w-auto object-contain" />
+          <span>
+            Mov<span className="text-teal">Mold</span>
+          </span>
+        </a>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-primary-foreground/70 hover:text-teal transition-colors"
+              className="text-sm text-primary-foreground/70 transition-colors hover:text-teal"
             >
               {link.label}
             </a>
@@ -55,23 +49,20 @@ const Navbar = () => {
         </div>
 
         {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-primary-foreground"
-        >
-          {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        <button onClick={() => setOpen(!open)} className="text-primary-foreground md:hidden">
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-navy/95 backdrop-blur-md border-t border-primary-foreground/10 px-6 pb-4">
+        <div className="border-t border-primary-foreground/10 bg-navy/95 px-6 pb-4 backdrop-blur-md md:hidden">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block py-3 text-sm text-primary-foreground/70 hover:text-teal transition-colors"
+              className="block py-3 text-sm text-primary-foreground/70 transition-colors hover:text-teal"
             >
               {link.label}
             </a>

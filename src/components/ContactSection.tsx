@@ -97,27 +97,23 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contato" className="py-24 bg-navy text-primary-foreground">
-      <div className="container mx-auto px-6 max-w-5xl">
+    <section id="contato" className="bg-navy py-24 text-primary-foreground">
+      <div className="container mx-auto max-w-5xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <p className="text-teal font-medium tracking-[0.15em] uppercase text-sm mb-3">
-            Contato
-          </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Vamos conversar?
-          </h2>
-          <p className="text-primary-foreground/70 max-w-lg mx-auto">
-            Entre em contato diretamente com nossos engenheiros e descubra como
-            podemos ajudar o seu projeto.
+          <p className="mb-3 text-sm font-medium uppercase tracking-[0.15em] text-teal">Contato</p>
+          <h2 className="mb-4 font-display text-4xl font-bold md:text-5xl">Vamos conversar?</h2>
+          <p className="mx-auto max-w-lg text-primary-foreground/70">
+            Entre em contato diretamente com nossos engenheiros e descubra como podemos ajudar o seu
+            projeto.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid gap-12 md:grid-cols-2">
           {/* Formulário */}
           <motion.form
             onSubmit={handleSubmit}
@@ -127,18 +123,18 @@ const ContactSection = () => {
             className="space-y-4"
           >
             <div>
-              <label className="text-sm text-primary-foreground/70 mb-1 block">Nome *</label>
+              <label className="mb-1 block text-sm text-primary-foreground/70">Nome *</label>
               <Input
                 name="nome"
                 value={formData.nome}
                 onChange={handleChange}
                 placeholder="Seu nome completo"
                 maxLength={100}
-                className="bg-navy-light/50 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
+                className="border-primary-foreground/10 bg-navy-light/50 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
               />
             </div>
             <div>
-              <label className="text-sm text-primary-foreground/70 mb-1 block">CNPJ</label>
+              <label className="mb-1 block text-sm text-primary-foreground/70">CNPJ</label>
               <IMaskInput
                 mask="00.000.000/0000-00"
                 name="cnpj"
@@ -146,37 +142,36 @@ const ContactSection = () => {
                 unmask={false}
                 onAccept={(value) => setFormData((prev) => ({ ...prev, cnpj: value as string }))}
                 placeholder="00.000.000/0000-00"
-                className="flex h-10 w-full rounded-md px-3 py-2 text-sm bg-navy-light/50 border border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
+                className="flex h-10 w-full rounded-md border border-primary-foreground/10 bg-navy-light/50 px-3 py-2 text-sm text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
               />
             </div>
             <div>
-              <label className="text-sm text-primary-foreground/70 mb-1 block">Telefone *</label>
+              <label className="mb-1 block text-sm text-primary-foreground/70">Telefone *</label>
               <IMaskInput
-                mask={[
-                  { mask: "(00) 0000-0000" },
-                  { mask: "(00) 00000-0000" }
-                ]}
+                mask={[{ mask: "(00) 0000-0000" }, { mask: "(00) 00000-0000" }]}
                 name="telefone"
                 value={formData.telefone}
                 unmask={false}
-                onAccept={(value) => setFormData((prev) => ({ ...prev, telefone: value as string }))}
+                onAccept={(value) =>
+                  setFormData((prev) => ({ ...prev, telefone: value as string }))
+                }
                 placeholder="(00) 00000-0000"
-                className="flex h-10 w-full rounded-md px-3 py-2 text-sm bg-navy-light/50 border border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
+                className="flex h-10 w-full rounded-md border border-primary-foreground/10 bg-navy-light/50 px-3 py-2 text-sm text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
               />
             </div>
             <div>
-              <label className="text-sm text-primary-foreground/70 mb-1 block">Assunto *</label>
+              <label className="mb-1 block text-sm text-primary-foreground/70">Assunto *</label>
               <Input
                 name="assunto"
                 value={formData.assunto}
                 onChange={handleChange}
                 placeholder="Ex: Orçamento de molde"
                 maxLength={150}
-                className="bg-navy-light/50 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
+                className="border-primary-foreground/10 bg-navy-light/50 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
               />
             </div>
             <div>
-              <label className="text-sm text-primary-foreground/70 mb-1 block">Mensagem *</label>
+              <label className="mb-1 block text-sm text-primary-foreground/70">Mensagem *</label>
               <Textarea
                 name="mensagem"
                 value={formData.mensagem}
@@ -184,19 +179,19 @@ const ContactSection = () => {
                 placeholder="Descreva seu projeto ou necessidade..."
                 rows={4}
                 maxLength={2000}
-                className="bg-navy-light/50 border-primary-foreground/10 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
+                className="border-primary-foreground/10 bg-navy-light/50 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
               />
             </div>
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-teal hover:bg-teal-light text-secondary-foreground font-semibold py-3 text-base transition-all duration-300 hover:shadow-lg hover:shadow-teal/25"
+              className="w-full bg-teal py-3 text-base font-semibold text-secondary-foreground transition-all duration-300 hover:bg-teal-light hover:shadow-lg hover:shadow-teal/25"
             >
               {loading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="h-5 w-5 animate-spin" />
               ) : (
                 <>
-                  <Send className="w-4 h-4" />
+                  <Send className="h-4 w-4" />
                   Enviar Mensagem
                 </>
               )}
@@ -212,9 +207,9 @@ const ContactSection = () => {
           >
             <a
               href="mailto:movmold@gmail.com"
-              className="flex items-center gap-4 p-5 rounded-xl bg-navy-light/50 border border-primary-foreground/10 hover:border-teal/40 transition-colors"
+              className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
             >
-              <Mail className="w-6 h-6 text-teal flex-shrink-0" />
+              <Mail className="h-6 w-6 flex-shrink-0 text-teal" />
               <div>
                 <p className="text-sm text-primary-foreground/50">E-mail</p>
                 <span className="text-primary-foreground/80">movmold@gmail.com</span>
@@ -223,9 +218,9 @@ const ContactSection = () => {
 
             <a
               href="tel:+5519997391780"
-              className="flex items-center gap-4 p-5 rounded-xl bg-navy-light/50 border border-primary-foreground/10 hover:border-teal/40 transition-colors"
+              className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
             >
-              <Phone className="w-6 h-6 text-teal flex-shrink-0" />
+              <Phone className="h-6 w-6 flex-shrink-0 text-teal" />
               <div>
                 <p className="text-sm text-primary-foreground/50">Telefone</p>
                 <span className="text-primary-foreground/80">(19) 99739-1780</span>
@@ -236,9 +231,9 @@ const ContactSection = () => {
               href="https://linkedin.com/company/movmold"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-5 rounded-xl bg-navy-light/50 border border-primary-foreground/10 hover:border-teal/40 transition-colors"
+              className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
             >
-              <Linkedin className="w-6 h-6 text-teal flex-shrink-0" />
+              <Linkedin className="h-6 w-6 flex-shrink-0 text-teal" />
               <div>
                 <p className="text-sm text-primary-foreground/50">LinkedIn</p>
                 <span className="text-primary-foreground/80">MovMold</span>
@@ -249,9 +244,9 @@ const ContactSection = () => {
               href="https://instagram.com/movmold"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 p-5 rounded-xl bg-navy-light/50 border border-primary-foreground/10 hover:border-teal/40 transition-colors"
+              className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
             >
-              <Instagram className="w-6 h-6 text-teal flex-shrink-0" />
+              <Instagram className="h-6 w-6 flex-shrink-0 text-teal" />
               <div>
                 <p className="text-sm text-primary-foreground/50">Instagram</p>
                 <span className="text-primary-foreground/80">@movmold</span>
@@ -262,9 +257,9 @@ const ContactSection = () => {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 justify-center bg-teal hover:bg-teal-light text-secondary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal/25 text-lg mt-4"
+              className="mt-4 flex items-center justify-center gap-3 rounded-lg bg-teal px-8 py-4 text-lg font-semibold text-secondary-foreground transition-all duration-300 hover:bg-teal-light hover:shadow-lg hover:shadow-teal/25"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="h-5 w-5" />
               Iniciar Conversa no WhatsApp
             </a>
           </motion.div>
@@ -273,17 +268,18 @@ const ContactSection = () => {
 
       {/* Footer */}
       {/* Footer */}
-<footer className="container mx-auto px-6 max-w-5xl mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col items-center gap-3">
-  <img 
-    src={logo} 
-    alt="Logo MovMold" 
-    className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0" 
-  />
-  
-  <p className="text-center text-primary-foreground/60 text-sm">
-    © {new Date().getFullYear()} MovMold — Engenharia, Modelação e Ferramentaria. Todos os direitos reservados.
-  </p>
-</footer>
+      <footer className="container mx-auto mt-16 flex max-w-5xl flex-col items-center gap-3 border-t border-primary-foreground/10 px-6 pt-8">
+        <img
+          src={logo}
+          alt="Logo MovMold"
+          className="h-10 w-auto object-contain opacity-70 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+        />
+
+        <p className="text-center text-sm text-primary-foreground/60">
+          © {new Date().getFullYear()} MovMold — Engenharia, Modelação e Ferramentaria. Todos os
+          direitos reservados.
+        </p>
+      </footer>
     </section>
   );
 };
