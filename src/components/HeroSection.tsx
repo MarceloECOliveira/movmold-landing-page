@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import heroBg from "@/assets/hero-cnc.jpg";
 import { WHATSAPP_URL } from "@/lib/constants";
+import logo from "@/assets/logo.svg";
 
 const HeroSection = () => {
   return (
@@ -26,9 +27,15 @@ const HeroSection = () => {
           <p className="text-teal font-medium tracking-[0.2em] uppercase text-sm mb-4">
             Engenharia · Modelação · Ferramentaria
           </p>
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-primary-foreground leading-tight mb-6">
-            Mov<span className="text-teal">Mold</span>
-          </h1>
+          <h1 className="mb-8">
+  <span className="sr-only">MovMold - Engenharia, Modelação e Ferramentaria em Itapira, interior de São Paulo</span>
+  
+  <img 
+    src={logo} 
+    alt="Logo MovMold - Engenharia, Modelação e Ferramentaria em Itapira, interior de São Paulo" 
+    className="h-32 md:h-60 w-auto object-contain mx-auto lg:mx-0" 
+  />
+</h1>
           <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mb-10 leading-relaxed">
             Excelência em engenharia de precisão. Transformamos conceitos em soluções
             industriais com qualidade, tecnologia e compromisso com o resultado.
