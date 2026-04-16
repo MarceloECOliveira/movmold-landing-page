@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { IMaskInput } from "react-imask";
+import logo from "@/assets/logo.svg";
 
 interface ContactFormData {
   nome: string;
@@ -271,11 +272,18 @@ const ContactSection = () => {
       </div>
 
       {/* Footer */}
-      <div className="container mx-auto px-6 max-w-5xl mt-16 pt-8 border-t border-primary-foreground/10">
-        <p className="text-center text-primary-foreground/40 text-sm">
-          © {new Date().getFullYear()} MovMold — Engenharia, Modelação e Ferramentaria. Todos os direitos reservados.
-        </p>
-      </div>
+      {/* Footer */}
+<footer className="container mx-auto px-6 max-w-5xl mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col items-center gap-3">
+  <img 
+    src={logo} 
+    alt="Logo MovMold" 
+    className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0" 
+  />
+  
+  <p className="text-center text-primary-foreground/60 text-sm">
+    © {new Date().getFullYear()} MovMold — Engenharia, Modelação e Ferramentaria. Todos os direitos reservados.
+  </p>
+</footer>
     </section>
   );
 };
