@@ -14,11 +14,12 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto px-6 py-32 text-center lg:max-w-5xl lg:text-left">
+      <div className="container relative z-10 mx-auto px-6 py-32 text-center lg:max-w-5xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center"
         >
           <p className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-teal">
             Engenharia · Modelação · Ferramentaria
@@ -31,7 +32,7 @@ const HeroSection = () => {
             <img
               src={logo}
               alt="Logo MovMold - Engenharia, Modelação e Ferramentaria em Itapira, interior de São Paulo"
-              className="mx-auto h-32 w-auto object-contain md:h-60 lg:mx-0"
+              className="h-32 w-auto object-contain md:h-60"
             />
           </h1>
           <p className="mb-10 max-w-2xl text-lg leading-relaxed text-primary-foreground/80 md:text-xl">
