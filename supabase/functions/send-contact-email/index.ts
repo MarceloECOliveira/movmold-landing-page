@@ -11,13 +11,44 @@ serve(async (req) => {
   }
 
   try {
-    const { nome, cnpj, telefone, assunto, mensagem } = await req.json();
+    const { nome, cnpj, telefone, assunto, mensagem, token } = await req.json();
 
     if (!nome || !telefone || !assunto || !mensagem) {
       return new Response(JSON.stringify({ error: "Campos obrigatórios não preenchidos" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+    }
+    
+    if (!token) {
+      return new Response(JSON.stringify({ error: "Token de segurança ausente" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // CAPTCHA Validation (Turnstile)
+    const TURNSTILE_SECRET_KEY = Deno.env.get("TURNSTILE_SECRET_KEY");
+    
+    if (TURNSTILE_SECRET_KEY) {
+      const formData = new FormData();
+      formData.append('secret', TURNSTILE_SECRET_KEY);
+      formData.append('response', token);
+      
+      const verificationResult = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        body: formData,
+        method: 'POST',
+      });
+
+      const outcome = await verificationResult.json();
+      if (!outcome.success) {
+        return new Response(JSON.stringify({ error: "Falha na verificação de segurança (Bot detectado)" }), {
+          status: 403,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+    } else {
+      console.warn("Aviso: TURNSTILE_SECRET_KEY não configurada no Supabase.");
     }
 
     // Sanitize inputs

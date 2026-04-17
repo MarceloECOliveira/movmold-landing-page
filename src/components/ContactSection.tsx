@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
@@ -18,6 +18,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { IMaskInput } from "react-imask";
 import logo from "@/assets/logo.svg";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 interface ContactFormData {
   nome: string;
@@ -43,8 +44,42 @@ const ContactSection = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [cooldown, setCooldown] = useState(false);
+
+  // User on cooldown?
+  useEffect(() => {
+    const lastSent = localStorage.getItem("lastContactSent");
+    if (lastSent) {
+      const timePassed = Date.now() - parseInt(lastSent);
+      if (timePassed < 30000) {
+        // 30 seconds
+        setCooldown(true);
+        setTimeout(() => setCooldown(false), 120000 - timePassed);
+      }
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (cooldown) {
+      toast({
+        title: "Aguarde um momento",
+        description: "Por favor, aguarde alguns segundos antes de enviar outra mensagem.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!turnstileToken) {
+      toast({
+        title: "Verificação de segurança",
+        description: "Por favor, aguarde a verificação anti-bot concluir.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     if (!formData.nome || !formData.telefone || !formData.assunto || !formData.mensagem) {
       toast({
@@ -84,6 +119,7 @@ const ContactSection = () => {
           telefone: formData.telefone,
           assunto: formData.assunto,
           mensagem: formData.mensagem,
+          token: turnstileToken,
         },
       });
 
@@ -94,6 +130,11 @@ const ContactSection = () => {
         description: "Entraremos em contato em breve.",
       });
       setFormData({ nome: "", cnpj: "", telefone: "", assunto: "", mensagem: "" });
+
+      // Cooldown
+      localStorage.setItem("lastContactSent", Date.now().toString());
+      setCooldown(true);
+      setTimeout(() => setCooldown(false), 30000); // 30 seconds
     } catch {
       toast({
         title: "Erro ao enviar",
@@ -189,6 +230,13 @@ const ContactSection = () => {
                 rows={4}
                 maxLength={2000}
                 className="border-primary-foreground/10 bg-navy-light/50 text-primary-foreground placeholder:text-primary-foreground/30 focus-visible:ring-teal"
+              />
+            </div>
+            <div className="flex justify-center py-2">
+              <Turnstile
+                siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || "0x4AAAAAAC_DIjtqhsT0YNgK"}
+                onSuccess={(token) => setTurnstileToken(token)}
+                options={{ theme: "light" }}
               />
             </div>
             <Button
