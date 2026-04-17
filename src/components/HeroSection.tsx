@@ -35,7 +35,7 @@ const HeroSection = () => {
               className="h-32 w-auto object-contain md:h-60"
             />
           </h1>
-          <p className="mb-10 max-w-2xl text-center md:text-left text-lg leading-relaxed text-primary-foreground/80 md:text-xl">
+          <p className="mb-10 max-w-2xl text-center text-lg leading-relaxed text-primary-foreground/80 md:text-left md:text-xl">
             Excelência em engenharia de precisão. Transformamos conceitos em soluções industriais
             com qualidade, tecnologia e compromisso com o resultado.
           </p>
