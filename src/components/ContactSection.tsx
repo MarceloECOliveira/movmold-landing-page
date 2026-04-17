@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, Instagram, Linkedin, MessageCircle, Send, Loader2 } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Camera,
+  BriefcaseBusiness,
+  MapPin,
+  MessageCircle,
+  Send,
+  Loader2,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -233,7 +242,7 @@ const ContactSection = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
             >
-              <Linkedin className="h-6 w-6 flex-shrink-0 text-teal" />
+              <BriefcaseBusiness className="h-6 w-6 flex-shrink-0 text-teal" />
               <div>
                 <p className="text-sm text-primary-foreground/50">LinkedIn</p>
                 <span className="text-primary-foreground/80">MovMold</span>
@@ -246,10 +255,25 @@ const ContactSection = () => {
               rel="noopener noreferrer"
               className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
             >
-              <Instagram className="h-6 w-6 flex-shrink-0 text-teal" />
+              <Camera className="h-6 w-6 flex-shrink-0 text-teal" />
               <div>
                 <p className="text-sm text-primary-foreground/50">Instagram</p>
                 <span className="text-primary-foreground/80">@movmold</span>
+              </div>
+            </a>
+
+            <a
+              href="https://maps.app.goo.gl/WNLQwByMpgoG22uLA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 rounded-xl border border-primary-foreground/10 bg-navy-light/50 p-5 transition-colors hover:border-teal/40"
+            >
+              <MapPin className="h-6 w-6 flex-shrink-0 text-teal" />
+              <div>
+                <p className="text-sm text-primary-foreground/50">Endereço</p>
+                <span className="text-primary-foreground/80">
+                  Av. Gov. Mário Covas, 306 - Parque Felicidade, Itapira - SP, 13973-695
+                </span>
               </div>
             </a>
 
@@ -266,7 +290,6 @@ const ContactSection = () => {
         </div>
       </div>
 
-      {/* Footer */}
       {/* Footer */}
       <footer className="container mx-auto mt-16 flex max-w-5xl flex-col items-center gap-3 border-t border-primary-foreground/10 px-6 pt-8">
         <img
